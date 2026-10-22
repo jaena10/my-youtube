@@ -7,6 +7,12 @@ const getBaseUrl = () => {
   if (!envUrl) return '/mangulabnan/songs';
 
   envUrl = envUrl.trim().replace(/\/+$/, '');
+
+  // Render Blueprint property:host only returns the service name (e.g. youtube-backend-6u09)
+  if (!envUrl.includes('.') && !envUrl.includes('localhost')) {
+    envUrl = `${envUrl}.onrender.com`;
+  }
+
   if (!/^https?:\/\//i.test(envUrl)) {
     envUrl = `https://${envUrl}`;
   }
